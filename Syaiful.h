@@ -1,8 +1,6 @@
 #ifndef syaiful_h
 #include <math.h>
 #include <stdbool.h>
-#define true 1
-#define false 0
 
 float Hitungpersen(float persen, float total){// mencari persentase
 float hasil;
