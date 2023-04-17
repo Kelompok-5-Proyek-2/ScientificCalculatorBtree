@@ -58,10 +58,10 @@ void printStack(Stack L){
 		P = P->next;
 	}
 }
-int size(Stack L){
+int sizeOperat(Stack L){
     address P;
-    int count = 0;
     P = L.Top;
+    int count = 0;
     while(P!=NULL){
         count++;
         P = P->next;
@@ -122,4 +122,15 @@ void printOperandStack(OperandStack L){
 		printf("|%g|\n", P->info);
 		P = P->next;
 	}
+}
+
+int sizeOperand(OperandStack L){
+    OpAddress P;
+    P = L.Top;
+    int count = 0;
+    while(P!=NULL){
+        count++;
+        P = P->next;
+    }
+    return count;
 }

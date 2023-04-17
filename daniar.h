@@ -21,7 +21,7 @@ void createStack(Stack *L);
 void push(Stack *L,char item);
 void pop (Stack *L);
 void printStack(Stack L);
-int size(Stack L);
+int sizeOperat(Stack L);
 bool isEmpty(Stack L);
 
 typedef struct OperandList *OpAddress;
@@ -39,6 +39,7 @@ void createOperandStack(OperandStack *L);
 void pushOperand(OperandStack *L, double item);
 void popOperand (OperandStack *L);
 void printOperandStack(OperandStack L);
+int sizeOperand(OperandStack L);
 
 
 //Btree handling
