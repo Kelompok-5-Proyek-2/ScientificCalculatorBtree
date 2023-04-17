@@ -45,7 +45,8 @@ void printOperandStack(OperandStack L);
 typedef struct bstnode *Node;
 
 typedef struct bstnode {
-    infotype info;
+    char operat;
+    double operand;
     Node left;
     Node right;
 } btree;
@@ -54,6 +55,9 @@ typedef struct{
 	Node pointer;
 } bstree;
 
+Node insert_tree(Node root, double operand1, double operand2, char operat);
+Node create_node(double operand, char operat);
+void traverse_preorder(Node node);
 
 void CalArit();
 void mainMenu();

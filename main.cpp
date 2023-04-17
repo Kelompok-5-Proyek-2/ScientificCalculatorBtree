@@ -35,10 +35,11 @@ bool isNegative(char input[], int i){
 }
 
 int main(int argc, char** argv) {
-	char input[100];
+	char input[100], op;
 	bool cekNegative;
 	OperandStack operand;
 	Stack operat;
+	double bil1, bil2;
 	createOperandStack(&operand);
 	createStack(&operat);
 	
@@ -62,7 +63,17 @@ int main(int argc, char** argv) {
 		}
 		
 	}
-	printOperandStack(operand);
-	printStack(operat);
+	Node root = NULL;
+	int j=1;
+	while(operat.Top!=NULL){
+		double operand1 = operand.Top->info;
+		popOperand(&operand);
+    	double operand2 = operand.Top->info;
+		popOperand(&operand);
+		root = insert_tree(root, operand1, operand2, operat.Top->info);
+		pop(&operat);
+		j++;
+	}
+	traverse_preorder(root);
 	return 0;
 }
