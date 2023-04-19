@@ -57,9 +57,21 @@ double BtreeCalc(Node root){
     return 0;
 }
 
+void freeTree(Node *root) {
+    if (*root == NULL) {
+        return;
+    }
+    freeTree(&(*root)->left);
+    freeTree(&(*root)->right);
+    free(*root);
+}
+
 
 void traverse_preorder(Node node) {
     if (node == NULL) {
+    	system("cls");
+    	printf("Btree Not Found\n");
+    	exit(1);
         return;
     }
     if(node->operat != 'e'){

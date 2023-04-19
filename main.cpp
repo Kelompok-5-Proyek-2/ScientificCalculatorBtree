@@ -137,6 +137,7 @@ int main(int argc, char** argv) {
 	double hasil;
 	hasil = BtreeCalc(root);
 	printf("\nHasil = %g\n", hasil);
+	freeTree(&root);
 	//traverse_preorder(root);
 	return 0;
 }

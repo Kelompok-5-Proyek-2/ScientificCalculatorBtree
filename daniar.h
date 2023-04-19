@@ -59,7 +59,7 @@ typedef struct{
 Node insert_tree(Node root, double operand, char operat);
 Node create_node(double operand, char operat);
 void traverse_preorder(Node node);
-//void BtreeCalc(Node *root);
+void freeTree(Node *root);
 double BtreeCalc(Node root);
 
 
