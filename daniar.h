@@ -56,17 +56,19 @@ typedef struct{
 	Node pointer;
 } bstree;
 
-Node insert_tree(Node root, double operand1, double operand2, char operat);
+Node insert_tree(Node root, double operand, char operat);
 Node create_node(double operand, char operat);
 void traverse_preorder(Node node);
+//void BtreeCalc(Node *root);
+double BtreeCalc(Node root);
 
+
+//calculation handling;
 void CalArit();
 void mainMenu();
-
 int prioritas(char operat);
-
+double kalkulasi(double operand1, double operand2, char operat);
 bool isNegative(char input[], int i);
-
 bool isOperator(char op);
 
 #endif

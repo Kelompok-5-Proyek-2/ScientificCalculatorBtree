@@ -13,29 +13,48 @@ Node create_node(double operand, char operat){
 	return new_node;
 }
 
-Node insert_tree(Node root, double operand1, double operand2, char operat) {
+Node insert_tree(Node root, double operand, char operat) {
+	if(root == NULL){
+		return create_node(operand, operat);
+	}
+	
+	if(root->left==NULL){
+		root->left = insert_tree(root->left, operand, operat);
+	}else if(root->left != NULL){
+		root->right = insert_tree(root->right, operand, operat);
+	}else{
+		return root;
+	}
+}
+
+//void BtreeCalc(Node *root){
+//	Node *temp = root;
+//	do{
+//		if((*root)->right !=NULL){
+//			while((*root)->right->operat != 'e'){
+//				(*root) = (*root)->right;
+//			}
+//			(*root)->operand = kalkulasi((*root)->right->operand, (*root)->left->operand, (*root)->operat);
+//			(*root)->operat = 'e';
+//			(*root)->left = NULL;
+//			(*root)->right = NULL;
+//			(*root) = *temp;
+//		}
+//	}while((*root)->operat != 'e');
+//}
+
+double BtreeCalc(Node root){
     if (root == NULL) {
-        root = create_node(0, operat);
-        root->left = create_node(operand1, 'l');
-        root->right = create_node(operand2, 'l');
-        return root;
+        return 0;
     }
-
-    if (operat == '+' || operat == '-') {
-        if (root->operat == '*' || root->operat == '/') {
-            root->right = insert_tree(root->right, operand1, operand2, operat);
-        } else {
-            Node new_node = create_node(0, operat);
-            new_node->left = create_node(operand1, 'l');
-            new_node->right = create_node(operand2, 'l');
-            new_node->left = root;
-            return new_node;
-        }
-    } else if (operat == '*' || operat == '/') {
-        root->right = insert_tree(root->right, operand1, operand2, operat);
+    if (root->left == NULL && root->right == NULL) {
+        return root->operand;
     }
-
-    return root;
+    char operat = root->operat;
+    double left = BtreeCalc(root->left);
+    double right = BtreeCalc(root->right);
+    return kalkulasi(right, left, operat);
+    return 0;
 }
 
 
@@ -43,7 +62,7 @@ void traverse_preorder(Node node) {
     if (node == NULL) {
         return;
     }
-    if(node->operat != 'l'){
+    if(node->operat != 'e'){
     	printf("%c ", node->operat);
 	}
     if(node->operand != 0){

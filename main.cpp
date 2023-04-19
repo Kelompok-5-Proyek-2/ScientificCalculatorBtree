@@ -26,6 +26,42 @@ int prioritas(char operat) {
     
 }
 
+double kalkulasi(double operand1, double operand2, char operat){
+	if(isOperator(operat)){
+		switch (operat) {
+        case '^':
+            return exponent(operand1, operand2);
+        case '*':
+            return operand2 * operand1;
+        case '/':
+            return operand2 / operand1;
+        case '+':
+            return operand2 + operand1;
+        case '-':
+            return operand2 - operand1;
+        case 'V':
+        	return sqroot(operand1, operand2);
+        case '=':
+        	return sama(operand1, operand2);
+        case '>':
+        	return lebih_besar(operand1,operand2);
+        default:
+            return lebih_kecil(operand1,operand2);
+    	}
+	}else{
+		printf("Invalid Operator %c\n", operat);
+		return 0;
+	}
+}
+
+bool isOperator(char op){
+	if(op=='+' || op=='-' || op=='*' || op =='/' || op =='V' || op == '>' || op =='<' || op=='=' || op =='^' || op=='(' || op ==')'){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 bool isNegative(char input[], int i){
 	if(input[i]=='-' && !isdigit(input[i++])){
 		return true;
@@ -37,12 +73,13 @@ bool isNegative(char input[], int i){
 int main(int argc, char** argv) {
 	char input[100], op;
 	bool cekNegative;
-	OperandStack operand;
-	Stack operat;
+	OperandStack operand, insertOperand;
+	Stack operat, insertOperat;
 	double bil1, bil2;
 	createOperandStack(&operand);
 	createStack(&operat);
 	
+	//input handling
 	system("cls");
     printf("\tKalkulator Scientific Kelompok 5\n\n");
     printf("Input : ");
@@ -59,21 +96,47 @@ int main(int argc, char** argv) {
             i--;
         }
 		else{
+			
 			push(&operat, input[i]);
 		}
 		
 	}
+	
+	//insert to btree
 	Node root = NULL;
-	int j=1;
-	while(operat.Top!=NULL){
-		double operand1 = operand.Top->info;
-		popOperand(&operand);
-    	double operand2 = operand.Top->info;
-		popOperand(&operand);
-		root = insert_tree(root, operand1, operand2, operat.Top->info);
+	createOperandStack(&insertOperand);
+	createStack(&insertOperat);
+	int sizeOperatt = sizeOperat(operat);
+	int sizeOperandd = sizeOperand(operand);
+	for(int j=0; j<sizeOperatt; j++){
+		push(&insertOperat, operat.Top->info);
 		pop(&operat);
-		j++;
 	}
-	traverse_preorder(root);
+	for(int j=0; j<sizeOperandd; j++){
+		pushOperand(&insertOperand, operand.Top->info);
+		popOperand(&operand);
+	}
+	bstree temp;
+	int sizeStack = sizeOperand(insertOperand) + sizeOperat(insertOperat);
+	for(int j=0; j<sizeStack; j++){
+		if(root==NULL || (sizeOperat(insertOperat)>=1 && temp.pointer->left !=NULL )){
+			root = insert_tree(root, 0, insertOperat.Top->info);
+			pop(&insertOperat);
+		}else {
+			root = insert_tree(root, insertOperand.Top->info, 'e');
+			popOperand(&insertOperand);
+		}
+		if(root !=NULL && j==0){
+        	temp.pointer =  root;
+    	}
+	    while(temp.pointer != NULL && temp.pointer->right != NULL){
+	        temp.pointer = temp.pointer->right;
+	    }
+		
+	}
+	double hasil;
+	hasil = BtreeCalc(root);
+	printf("\nHasil = %g\n", hasil);
+	//traverse_preorder(root);
 	return 0;
 }
