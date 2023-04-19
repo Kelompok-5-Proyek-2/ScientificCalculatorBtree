@@ -30,7 +30,7 @@ double kalkulasi(double operand1, double operand2, char operat){
 	if(isOperator(operat)){
 		switch (operat) {
         case '^':
-            return exponent(operand1, operand2);
+            return exponent(operand2, operand1);
         case '*':
             return operand2 * operand1;
         case '/':
@@ -40,13 +40,13 @@ double kalkulasi(double operand1, double operand2, char operat){
         case '-':
             return operand2 - operand1;
         case 'V':
-        	return sqroot(operand1, operand2);
+        	return sqroot(operand2, operand1);
         case '=':
-        	return sama(operand1, operand2);
+        	return sama(operand2, operand1);
         case '>':
-        	return lebih_besar(operand1,operand2);
+        	return lebih_besar(operand2,operand1);
         default:
-            return lebih_kecil(operand1,operand2);
+            return lebih_kecil(operand2,operand1);
     	}
 	}else{
 		printf("Invalid Operator %c\n", operat);

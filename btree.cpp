@@ -54,7 +54,6 @@ double BtreeCalc(Node root){
     double left = BtreeCalc(root->left);
     double right = BtreeCalc(root->right);
     return kalkulasi(right, left, operat);
-    return 0;
 }
 
 void freeTree(Node *root) {
