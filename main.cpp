@@ -81,8 +81,8 @@ int main(int argc, char** argv) {
 	
 	//input handling
 	system("cls");
-    printf("\tKalkulator Scientific Kelompok 5\n\n");
-    printf("Input : ");
+	tampilan();
+    printf("\n\n\t\t> Input :");
 	scanf("%s", &input);
 	for (int i = 0; input[i]; i++){
 		if (isdigit(input[i])) {
@@ -136,7 +136,8 @@ int main(int argc, char** argv) {
 	}
 	double hasil;
 	hasil = BtreeCalc(root);
-	printf("\nHasil = %g\n", hasil);
+	printf("\n\t\t= %g\n", hasil);
+	printf("\n\n\n\n\n\n\n\n\n\n");
 	freeTree(&root);
 	//traverse_preorder(root);
 	return 0;
