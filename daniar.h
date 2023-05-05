@@ -19,7 +19,13 @@ typedef struct {
 address alokasi(char item);
 void createStack(Stack *L);
 void push(Stack *L,char item);
+/*
+operator_stack[++operator_top] = atof(number) == push(&operator_stack, input[i])
+*/
 void pop (Stack *L);
+/*
+operator_stack[operator_top--] = atof(number) == push(&operator_stack)
+*/
 void printStack(Stack L);
 int sizeOperat(Stack L);
 bool isEmpty(Stack L);
@@ -37,7 +43,13 @@ typedef struct {
 OpAddress OperandAlokasi(double item);
 void createOperandStack(OperandStack *L);
 void pushOperand(OperandStack *L, double item);
+/*
+operand_stack[++operand_top] = atof(number) == pushOperand(&operand_stack, atof(number))
+*/
 void popOperand (OperandStack *L);
+/*
+operand_stack[operand_top--] == popOperand(&operand_top)
+*/
 void printOperandStack(OperandStack L);
 int sizeOperand(OperandStack L);
 
