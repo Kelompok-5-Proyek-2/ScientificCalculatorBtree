@@ -117,7 +117,6 @@ int main(int argc, char** argv) {
             number[number_top] = '\0';
             pushOperand(&operand, atof(number));
             i--;
-<<<<<<< HEAD
         }
 		else if (input[i]=='(' &&  input[i+1] == '-'){
 			//printOperandStack(operand);
@@ -131,7 +130,6 @@ int main(int argc, char** argv) {
             number[number_top] = '\0';
             pushOperand(&operand, -1*atof(number));
             i = k--;
-<<<<<<< HEAD
 		}
 		else if (input[i] == '(' && !isNegative(&input[i+1], i)) {
             push(&operat, input[i]);
