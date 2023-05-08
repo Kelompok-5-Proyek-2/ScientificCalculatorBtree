@@ -167,6 +167,29 @@ int main(int argc, char** argv) {
             }
             pop(&operat);
         }
+        else if(input[i]=='!'){
+			int j = i - 1;
+			int k;
+			//char number[100];
+			double bil;
+			int result;
+			int index = 0;
+			while (j >= 0 && isdigit(input[j])) {
+			    j--;
+			}
+			for (k = j + 1; k < i; k++) {
+			   // number[index] = input[k];
+			    index++;
+			}
+		    //pushOperand(&operand, atof(number));
+			bil = operand.Top->info;   
+			result = faktorial(bil);
+			popOperand(&operand);
+			//popOperand(&operand);
+			pushOperand(&operand,(double)result);
+			//printOperandStack(operand);
+		}
+			
 		else{
 			if(!isdigit(input[i]) && !isdigit(input[i+1]) && input[i+1] !='(' && input[i+1]!='[' && input[i+1]!='|' && input[i+1]!= 'l' && input[i+1]!='s' && input[i+1]!='c' && input[i+1]!='t'){
 				printf("The operator is incorrect, the '%c' and '%c' operators should not be adjacent to each other\n", input[i], input[i+1]);
@@ -220,6 +243,8 @@ int main(int argc, char** argv) {
 			
 		}
 	}
+	
+
 	//traverse_preorder(root);
 	double hasil;
 	if(root!=NULL){

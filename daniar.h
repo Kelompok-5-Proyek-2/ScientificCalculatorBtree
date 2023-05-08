@@ -27,7 +27,7 @@ void pop (Stack *L);
 operator_stack[operator_top--] = atof(number) == push(&operator_stack)
 */
 void printStack(Stack L);
-int sizeOperat(Stack L);
+int sizeOperat(Stack L); //operat_top(int)
 bool isEmpty(Stack L);
 
 typedef struct OperandList *OpAddress;
@@ -51,7 +51,7 @@ void popOperand (OperandStack *L);
 operand_stack[operand_top--] == popOperand(&operand_top)
 */
 void printOperandStack(OperandStack L);
-int sizeOperand(OperandStack L);
+int sizeOperand(OperandStack L); //operand_top (int)
 
 
 //Btree handling
