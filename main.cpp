@@ -189,6 +189,48 @@ int main(int argc, char** argv) {
 			pushOperand(&operand,(double)result);
 			//printOperandStack(operand);
 		}
+		else if (input[i] == 'l'){
+	        	char log[4];
+	        	int j=0;
+	        	char temp[1], temp2[1];
+	        	char number[100];
+	        	int number_top = 0;
+	        	temp[0] = input[i-1];
+	        	while(input[i] != ')' && (input[i] != '+' || input[i] != '-' || input[i] != '*' || input[i] != '/') && input[i] != ' '){
+	        		if(isdigit(input[i]) || input[i] == '.'){
+	        			number[number_top++] = input[i++];
+					}else {
+				        log[j++] = input[i++];
+				        log[4] = '\0';
+				    }
+				}
+				number[number_top] = '\0';
+				if(strcmp(log, "log(")){
+					printf("invalid expression, maybe input = 'log()'?\n");
+				}else{
+					if(j!=4){
+					printf("Invalid expression for logaritma, example 'log(10) or 2log(4) and input number should be greater than 0'\n");
+					}else{
+						
+						//operand_stack[++operand_top] = atof(number);
+						pushOperand(&operand, atof(number));
+					//	printOperandStack(operand);
+						bil2 = operand.Top->info;
+						popOperand(&operand);
+						if(bil2 <= 0) {
+				            printf("Invalid expression for logaritma, the input number should be greater than 0\n");
+				        }
+						else if(!isdigit(temp[0])){
+							pushOperand(&operand,logbase(bil2, 10));
+						}else{
+							bil1 = operand.Top->info;
+							popOperand(&operand);
+							pushOperand(&operand,logbase(bil2, bil1));
+						}
+					
+					}	
+				}
+			}
 			
 		else{
 			if(!isdigit(input[i]) && !isdigit(input[i+1]) && input[i+1] !='(' && input[i+1]!='[' && input[i+1]!='|' && input[i+1]!= 'l' && input[i+1]!='s' && input[i+1]!='c' && input[i+1]!='t'){
