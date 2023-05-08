@@ -294,7 +294,20 @@ int main(int argc, char** argv) {
 					pushOperand(&operand, perform_trig_operation(bil, trigono));
 					//operand_stack[operand_top]=perform_trig_operation(bil, trigono);
 				}
-			
+		}
+		else if(input[i]=='|'){
+            	i++;
+            	char number[100];
+                int number_top = 0;
+                
+                while (input[i] != '|') {
+                    number[number_top++] = input[i++];
+                }
+                number[number_top] = '\0';
+                pushOperand(&operand, atof(number));
+                double bil=operand.Top->info;
+                popOperand(&operand);
+                pushOperand(&operand, nilai_mutlak(bil));
 		}else{
 			if(!isdigit(input[i]) && !isdigit(input[i+1]) && input[i+1] !='(' && input[i+1]!='[' && input[i+1]!='|' && input[i+1]!= 'l' && input[i+1]!='s' && input[i+1]!='c' && input[i+1]!='t'){
 				printf("The operator is incorrect, the '%c' and '%c' operators should not be adjacent to each other\n", input[i], input[i+1]);
