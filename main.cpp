@@ -96,19 +96,20 @@ int main(int argc, char** argv) {
             pushOperand(&operand, atof(number));
             i--;
         }
-		else if (input[i]=='(' && isNegative(&input[i+1], i)){
+		else if (input[i]=='(' &&  input[i+1] == '-'){
+			//printOperandStack(operand);
         	char number[100];
         	int k;
         	k = i+2;
             int number_top = 0;
-            while (isdigit(input[k]) || input[k] == '.') {
+            while ((isdigit(input[k]) || input[k] == '.') && input[k]!=')') {
 				number[number_top++] = input[k++];	
             }
             number[number_top] = '\0';
             pushOperand(&operand, -1*atof(number));
             i = k--;
 		}
-		else if (input[i] == '(') {
+		else if (input[i] == '(' && !isNegative(&input[i+1], i)) {
             push(&operat, input[i]);
         }
 		else if (input[i] == ')') {
@@ -123,47 +124,6 @@ int main(int argc, char** argv) {
                 if(sizeOperand(operand)==0){
                 	break;
 				}
-//				Node root = NULL;
-//				if(operand.Top != NULL && operat.Top != NULL){
-//					createOperandStack(&insertOperand);
-//					createStack(&insertOperat);
-//					int sizeOperatt = sizeOperat(operat);
-//					int sizeOperandd = sizeOperand(operand);
-//					for(int j=0; j<sizeOperatt; j++){
-//						if(operat.Top->info!= '('){
-//							push(&insertOperat, operat.Top->info);
-//							pop(&operat);
-//						}else{
-//							break;
-//						}
-//					}
-//					for(int j=0; j<sizeOperandd; j++){
-//						pushOperand(&insertOperand, operand.Top->info);
-//						popOperand(&operand);
-//					}
-//					bstree temp;
-//					int sizeStack = sizeOperand(insertOperand) + sizeOperat(insertOperat);
-//					for(int j=0; j<sizeStack; j++){
-//						if(root==NULL || (sizeOperat(insertOperat)>=1 && temp.pointer->left !=NULL )){
-//							root = insert_tree(root, 0, insertOperat.Top->info);
-//							pop(&insertOperat);
-//						}else {
-//							root = insert_tree(root, insertOperand.Top->info, 'e');
-//							popOperand(&insertOperand);
-//						}
-//						if(root !=NULL && j==0){
-//				        	temp.pointer =  root;
-//				    	}
-//					    while(temp.pointer != NULL && temp.pointer->right != NULL){
-//					        temp.pointer = temp.pointer->right;
-//					    }
-//						
-//					}
-//				}
-//				//traverse_preorder(root);
-//				if(root!=NULL){
-//					pushOperand(&operand, BtreeCalc(root));
-//				}
             }
             pop(&operat);
         }
@@ -258,6 +218,7 @@ int main(int argc, char** argv) {
 		createStack(&insertOperat);
 		int sizeOperatt = sizeOperat(operat);
 		int sizeOperandd = sizeOperand(operand);
+		//reverse stack
 		for(int j=0; j<sizeOperatt; j++){
 			push(&insertOperat, operat.Top->info);
 			pop(&operat);

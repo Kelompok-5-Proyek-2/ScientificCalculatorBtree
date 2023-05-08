@@ -32,23 +32,6 @@ Node insert_tree(Node root, double operand, char operat) {
 	}
 	return root;
 }
-
-//void BtreeCalc(Node *root){
-//	Node *temp = root;
-//	do{
-//		if((*root)->right !=NULL){
-//			while((*root)->right->operat != 'e'){
-//				(*root) = (*root)->right;
-//			}
-//			(*root)->operand = kalkulasi((*root)->right->operand, (*root)->left->operand, (*root)->operat);
-//			(*root)->operat = 'e';
-//			(*root)->left = NULL;
-//			(*root)->right = NULL;
-//			(*root) = *temp;
-//		}
-//	}while((*root)->operat != 'e');
-//}
-
 double BtreeCalc(Node root){
     if (root == NULL) {
         return 0;
