@@ -54,6 +54,28 @@ double kalkulasi(double operand1, double operand2, char operat){
 	}
 }
 
+double perform_trig_operation(double sudut, char op[]) {
+    if (strcmp(op, "sec(") == 0) {
+		return 1.0 / cosinus(sudut);
+    } else if (strcmp(op, "csc(") == 0) {
+		return 1.0 / sinus(sudut);
+    } else if (strcmp(op, "cot(") == 0) {
+		return 1.0 / tangen(sudut);
+    } else if (strcmp(op, "sin(") == 0) {
+    	return sinus(sudut);
+    } else if (strcmp(op, "cos(") == 0 && sudut != 90) {
+        return cosinus(sudut);
+    } else if (strcmp(op, "cos(") == 0 && sudut == 90) {
+        return 0;
+    } else if (strcmp(op, "tan(") == 0) {
+        return tangen(sudut);
+    } else {
+    	printf("invalid operator trigonometri, example 'sin(), cos(), tan(), sec(), cot(), csc()'\n");
+    	system("pause");
+        return 0;
+    }
+}
+
 bool isOperator(char op){
 	if(op=='+' || op=='-' || op=='*' || op =='/' || op =='V' || op == '>' || op =='<' || op=='=' || op =='^' || op=='(' || op ==')'){
 		return true;
@@ -95,8 +117,7 @@ int main(int argc, char** argv) {
             number[number_top] = '\0';
             pushOperand(&operand, atof(number));
             i--;
-        }
-		else if (input[i]=='(' && isNegative(&input[i+1], i)){
+        } else if (input[i]=='(' && isNegative(&input[i+1], i)){
         	char number[100];
         	int k;
         	k = i+2;
@@ -107,12 +128,10 @@ int main(int argc, char** argv) {
             number[number_top] = '\0';
             pushOperand(&operand, -1*atof(number));
             i = k--;
-		}
-		else if (input[i] == '(') {
+		} else if (input[i] == '(') {
             push(&operat, input[i]);
-        }
-		else if (input[i] == ')') {
-            while (operat.Top->info != '(') {
+        } else if (input[i] == ')') {
+        	while (operat.Top->info != '(') {
                 double bil2 = operand.Top->info;
 				popOperand(&operand);
 				double bil1 = operand.Top->info;
@@ -166,8 +185,7 @@ int main(int argc, char** argv) {
 //				}
             }
             pop(&operat);
-        }
-        else if(input[i]=='!'){
+        } else if(input[i]=='!'){
 			int j = i - 1;
 			int k;
 			//char number[100];
@@ -188,8 +206,7 @@ int main(int argc, char** argv) {
 			//popOperand(&operand);
 			pushOperand(&operand,(double)result);
 			//printOperandStack(operand);
-		}
-		else if (input[i] == 'l'){
+		} else if (input[i] == 'l'){
 	        	char log[4];
 	        	int j=0;
 	        	char temp[1], temp2[1];
@@ -230,9 +247,55 @@ int main(int argc, char** argv) {
 					
 					}	
 				}
-			}
+		} else if (input[i] == 's' || input[i] == 'c' || input[i] == 't'){
+            	char trigono[5];
+            	int j=0;
+            	char nomor[100], cek;
+            	int bil, negative;
+            	int nomor_top = 0;
+            	negative = 0;
+			    cek = input[i+4]; // Skip "sin(" or "cos(" or "tan("
+				
+				//Handle angka sebelum sin
+				if(isdigit(input[i-1])){
+					printf("invalid expression for trigonometri, example 'sin(90) or sec(90) etc'\n");
+				}		
+			    // Handle negative number
+			    if (cek == '-') {
+			    	negative = 1;
+			    }
+            	while(input[i] != ')' && (input[i] != '+' || input[i] != '*' || input[i] != '/') && input[i] != ' '){
+            		if(isdigit(input[i]) || input[i] == '.'){
+            			nomor[nomor_top++] = input[i++];
+            			
+					}else {
+				        // menyimpan operator trigonometri
+				        trigono[j++] = input[i++];
+				        trigono[4] = '\0';
+				    }
+				}
+				nomor[nomor_top] = '\0';
+				if(negative){
+					j--;
+				}
+				if(j!=4){
+					printf("invalid expression for trigonometri, example 'sin(90) or sec(90) etc'\n");
+				}else{
+					if (negative) { // jika bilangan negatif, konversi ke nilai negatif saat disimpan di stack
+			            //operand_stack[++operand_top] = -1 * atof(nomor);
+			            pushOperand(&operand, -1 * atof(nomor));
+			        } else {
+			           // operand_stack[++operand_top] = atof(nomor);
+			            pushOperand(&operand, atof(nomor));
+			        }
+					//bil = operand_stack[operand_top];
+					bil = operand.Top->info;
+					popOperand(&operand);
+					pushOperand(&operand, perform_trig_operation(bil, trigono));
+					//operand_stack[operand_top]=perform_trig_operation(bil, trigono);
+				}
 			
-		else{
+		}else{
 			if(!isdigit(input[i]) && !isdigit(input[i+1]) && input[i+1] !='(' && input[i+1]!='[' && input[i+1]!='|' && input[i+1]!= 'l' && input[i+1]!='s' && input[i+1]!='c' && input[i+1]!='t'){
 				printf("The operator is incorrect, the '%c' and '%c' operators should not be adjacent to each other\n", input[i], input[i+1]);
 			}

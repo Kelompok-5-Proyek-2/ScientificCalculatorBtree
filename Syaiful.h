@@ -74,11 +74,3 @@ int faktorial(int bil){
 }
 
 #endif
-
-
-
-
-
-
-
-
