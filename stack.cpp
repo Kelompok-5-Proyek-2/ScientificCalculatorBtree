@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "daniar.h"
 
+//operator stack
 address alokasi (char item)
 {
 	/* Kamus Lokal */

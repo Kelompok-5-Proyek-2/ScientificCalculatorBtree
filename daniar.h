@@ -4,8 +4,15 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+/*
+header ini berisi tentang header-header dari fungsi maupun prosedur yang di digunakan,
+terdapat 3 kelompok dalam header ini, fungsi untuk stack operand, fungsi untuk stack operat,
+dan fungsi untuk binary tree
+*/
+
 typedef char* infotype;
-//stack handling
+
+//operator stack handling
 typedef struct tElmtList *address;
 typedef struct tElmtList {
 	 char info;
@@ -30,6 +37,7 @@ void printStack(Stack L);
 int sizeOperat(Stack L); //operat_top(int)
 bool isEmpty(Stack L);
 
+//operand stack handling
 typedef struct OperandList *OpAddress;
 typedef struct OperandList {
 	 double info;

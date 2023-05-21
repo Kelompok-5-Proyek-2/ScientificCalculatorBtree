@@ -54,6 +54,7 @@ double kalkulasi(double operand1, double operand2, char operat){
 	}
 }
 
+//call trigonometri function
 double perform_trig_operation(double sudut, char op[]) {
     if (strcmp(op, "sec(") == 0) {
 		return 1.0 / cosinus(sudut);
@@ -94,6 +95,7 @@ bool isNegative(char input[], int i){
 
 int main(int argc, char** argv) {
 	tampilan();
+	for(;;){
 	char input[100], op;
 	bool cekNegative;
 	OperandStack operand, insertOperand;
@@ -108,6 +110,7 @@ int main(int argc, char** argv) {
     printf("Input : ");
 	scanf("%s", &input);
 	for (int i = 0; input[i]; i++){
+		//digit handling, push to operand_stack
 		if (isdigit(input[i])) {
             char number[100];
             int number_top = 0;
@@ -118,8 +121,8 @@ int main(int argc, char** argv) {
             pushOperand(&operand, atof(number));
             i--;
         }
+        //negative digit handling, push to operand_stack
 		else if (input[i]=='(' &&  input[i+1] == '-'){
-			//printOperandStack(operand);
         	char number[100];
         	int k;
         	k = i+2;
@@ -131,6 +134,8 @@ int main(int argc, char** argv) {
             pushOperand(&operand, -1*atof(number));
             i = k--;
 		}
+		
+		//'(' and ')' handling, push to operat_stack
 		else if (input[i] == '(' && !isNegative(&input[i+1], i)) {
             push(&operat, input[i]);
         } else if (input[i] == ')') {
@@ -147,10 +152,12 @@ int main(int argc, char** argv) {
 				}
             }
             pop(&operat);
-        } else if(input[i]=='!'){
+        }
+		
+		//faktorial handling 
+		else if(input[i]=='!'){
 			int j = i - 1;
 			int k;
-			//char number[100];
 			double bil;
 			int result;
 			int index = 0;
@@ -158,17 +165,16 @@ int main(int argc, char** argv) {
 			    j--;
 			}
 			for (k = j + 1; k < i; k++) {
-			   // number[index] = input[k];
 			    index++;
 			}
-		    //pushOperand(&operand, atof(number));
 			bil = operand.Top->info;   
 			result = faktorial(bil);
 			popOperand(&operand);
-			//popOperand(&operand);
 			pushOperand(&operand,(double)result);
-			//printOperandStack(operand);
-		} else if (input[i] == 'l'){
+		} 
+		
+		//logaritma handling
+		else if (input[i] == 'l'){
 	        	char log[4];
 	        	int j=0;
 	        	char temp[1], temp2[1];
@@ -209,7 +215,10 @@ int main(int argc, char** argv) {
 					
 					}	
 				}
-		} else if (input[i] == 's' || input[i] == 'c' || input[i] == 't'){
+		} 
+		
+		//trigonometri handling 'sin(', 'cos(', 'tan(', 'sec(', 'cot(', 'scs('
+		else if (input[i] == 's' || input[i] == 'c' || input[i] == 't'){
             	char trigono[5];
             	int j=0;
             	char nomor[100], cek;
@@ -257,6 +266,8 @@ int main(int argc, char** argv) {
 					//operand_stack[operand_top]=perform_trig_operation(bil, trigono);
 				}
 		}
+		
+		//absolute handling
 		else if(input[i]=='|'){
             	i++;
             	char number[100];
@@ -270,7 +281,10 @@ int main(int argc, char** argv) {
                 double bil=operand.Top->info;
                 popOperand(&operand);
                 pushOperand(&operand, nilai_mutlak(bil));
-		}else{
+		}
+		
+		//operat handling and priority handling ex = 2*3+4, this code will result 6+4
+		else{
 			if(!isdigit(input[i]) && !isdigit(input[i+1]) && input[i+1] !='(' && input[i+1]!='[' && input[i+1]!='|' && input[i+1]!= 'l' && input[i+1]!='s' && input[i+1]!='c' && input[i+1]!='t'){
 				printf("The operator is incorrect, the '%c' and '%c' operators should not be adjacent to each other\n", input[i], input[i+1]);
 			}
@@ -289,14 +303,15 @@ int main(int argc, char** argv) {
 		}
 		
 	}
-	//insert to btree
+	
+	//insert to btree handling
 	Node root = NULL;
 	if(operand.Top != NULL && operat.Top != NULL){
 		createOperandStack(&insertOperand);
 		createStack(&insertOperat);
 		int sizeOperatt = sizeOperat(operat);
 		int sizeOperandd = sizeOperand(operand);
-		//reverse stack
+		//reverse stack handling
 		for(int j=0; j<sizeOperatt; j++){
 			push(&insertOperat, operat.Top->info);
 			pop(&operat);
@@ -305,6 +320,8 @@ int main(int argc, char** argv) {
 			pushOperand(&insertOperand, operand.Top->info);
 			popOperand(&operand);
 		}
+		
+		//insert to btree from reverse stack
 		bstree temp;
 		int sizeStack = sizeOperand(insertOperand) + sizeOperat(insertOperat);
 		for(int j=0; j<sizeStack; j++){
@@ -326,15 +343,25 @@ int main(int argc, char** argv) {
 	}
 	
 
-	//traverse_preorder(root);
-	double hasil;
+	//calculate the result from binary tree
+	double hasil = 0;
 	if(root!=NULL){
 		hasil = BtreeCalc(root);
 	}
 	else{
-		hasil = operand.Top->info;	
+		if(operand.Top != NULL){
+			hasil = operand.Top->info;	
+		}
+			
 	}
 	printf("\nHasil = %g\n", hasil);
 	freeTree(&root);
+	system("pause");
+	}
 	return 0;
 }
+
+/*Reference: SDA Praktikum Module infix to prefix, 
+			 Binary tree program from tugas besar SDA, link : "https://github.com/mahesyasn18/Kamus-bahasa-indonesia-inggris",
+			 Scientific calculator group 5 with array, link : "https://github.com/Kelompok-5-Proyek-2/KalkulatorScientificKelompok5" 
+*/

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "daniar.h"
 
+//create node
 Node create_node(double operand, char operat){
 	Node new_node = (Node)malloc(sizeof(struct bstnode));
 	new_node->operand = operand;
@@ -21,11 +22,6 @@ Node insert_tree(Node root, double operand, char operat) {
 	if(root->left==NULL){
 		root->left = insert_tree(root->left, operand, operat);
 	}else if(root->left != NULL){
-//		if (operand < root->left->operand && operat =='e') {
-//            double temp = root->left->operand;
-//            root->left->operand = operand;
-//            operand = temp;
-//        }
         root->right = insert_tree(root->right, operand, operat);
 	}else{
 		return root;
