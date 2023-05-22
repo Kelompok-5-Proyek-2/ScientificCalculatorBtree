@@ -253,17 +253,13 @@ int main(int argc, char** argv) {
 					printf("invalid expression for trigonometri, example 'sin(90) or sec(90) etc'\n");
 				}else{
 					if (negative) { // jika bilangan negatif, konversi ke nilai negatif saat disimpan di stack
-			            //operand_stack[++operand_top] = -1 * atof(nomor);
 			            pushOperand(&operand, -1 * atof(nomor));
 			        } else {
-			           // operand_stack[++operand_top] = atof(nomor);
 			            pushOperand(&operand, atof(nomor));
 			        }
-					//bil = operand_stack[operand_top];
 					bil = operand.Top->info;
 					popOperand(&operand);
 					pushOperand(&operand, perform_trig_operation(bil, trigono));
-					//operand_stack[operand_top]=perform_trig_operation(bil, trigono);
 				}
 		}
 		

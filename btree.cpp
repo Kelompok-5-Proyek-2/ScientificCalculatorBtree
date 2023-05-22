@@ -21,7 +21,7 @@ Node insert_tree(Node root, double operand, char operat) {
 	
 	if(root->left==NULL){
 		root->left = insert_tree(root->left, operand, operat);
-	}else if(root->left != NULL){
+	}else if(root->left != NULL){									// jika left sudah ada
         root->right = insert_tree(root->right, operand, operat);
 	}else{
 		return root;
