@@ -46,25 +46,4 @@ double tangen(double derajat) {
     return sinus(derajat) / cosinus(derajat);
 }
 
-// logaritma natural
-//double lognat(double angka)
-//{
-//    double result = 0.0;
-//    double i;
-//    int iterasi = 30000;
-//    
-//    //looping sebanyak iterasi, semakin banyak iterasi maka semakin akurat jawabannya
-//    for (i = 1.0; i <= iterasi; i = i + 1.0) {
-//        result += (1.0 / i) * pow(((angka - 1.0) / angka), i);
-//    }
-//    return result;
-//}
-
-//logaritma
-//double logaritma(double angka, double basis)
-//{
-//	return lognat(angka) / lognat(basis);
-//}
-
-
 #endif

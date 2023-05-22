@@ -92,7 +92,7 @@ OpAddress alokasi (double item)
 void createOperandStack(OperandStack *L){
 	(*L).Top = NULL;
 }
-
+ 
 void pushOperand(OperandStack *L, double item){
 	OpAddress P, Q;
 	P = alokasi(item);

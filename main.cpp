@@ -206,11 +206,11 @@ int main(int argc, char** argv) {
 				            printf("Invalid expression for logaritma, the input number should be greater than 0\n");
 				        }
 						else if(!isdigit(temp[0])){
-							pushOperand(&operand,logbase(bil2, 10));
+							pushOperand(&operand,logaritma(bil2, 10));
 						}else{
 							bil1 = operand.Top->info;
 							popOperand(&operand);
-							pushOperand(&operand,logbase(bil2, bil1));
+							pushOperand(&operand,logaritma(bil2, bil1));
 						}
 					
 					}	
@@ -350,7 +350,13 @@ int main(int argc, char** argv) {
 		}
 			
 	}
-	printf("\nHasil = %g\n", hasil);
+	if(hasil>=1000000){
+		printf("\nHasil = %lf\n", hasil);
+	}
+	else{
+		printf("\nHasil = %g\n", hasil);
+	}
+	
 	freeTree(&root);
 	system("pause");
 	}
